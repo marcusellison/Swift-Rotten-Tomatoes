@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D01F5A11AF94A0600525B72 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D01F5A01AF94A0600525B72 /* MoviesViewController.swift */; };
 		3DB2DB451AF9477F009F3F86 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2DB441AF9477F009F3F86 /* AppDelegate.swift */; };
-		3DB2DB471AF9477F009F3F86 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB2DB461AF9477F009F3F86 /* ViewController.swift */; };
 		3DB2DB4A1AF9477F009F3F86 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DB2DB481AF9477F009F3F86 /* Main.storyboard */; };
 		3DB2DB4C1AF9477F009F3F86 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DB2DB4B1AF9477F009F3F86 /* Images.xcassets */; };
 		3DB2DB4F1AF9477F009F3F86 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DB2DB4D1AF9477F009F3F86 /* LaunchScreen.xib */; };
@@ -26,10 +26,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D01F5A01AF94A0600525B72 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		3DB2DB3F1AF9477F009F3F86 /* Rotten Tomatoes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Rotten Tomatoes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB2DB431AF9477F009F3F86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB2DB441AF9477F009F3F86 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3DB2DB461AF9477F009F3F86 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3DB2DB491AF9477F009F3F86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DB2DB4B1AF9477F009F3F86 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3DB2DB4E1AF9477F009F3F86 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -56,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D01F5A21AF94A2900525B72 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3D01F5A01AF94A0600525B72 /* MoviesViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		3DB2DB361AF9477F009F3F86 = {
 			isa = PBXGroup;
 			children = (
@@ -77,8 +85,8 @@
 		3DB2DB411AF9477F009F3F86 /* Rotten Tomatoes */ = {
 			isa = PBXGroup;
 			children = (
+				3D01F5A21AF94A2900525B72 /* View Controllers */,
 				3DB2DB441AF9477F009F3F86 /* AppDelegate.swift */,
-				3DB2DB461AF9477F009F3F86 /* ViewController.swift */,
 				3DB2DB481AF9477F009F3F86 /* Main.storyboard */,
 				3DB2DB4B1AF9477F009F3F86 /* Images.xcassets */,
 				3DB2DB4D1AF9477F009F3F86 /* LaunchScreen.xib */,
@@ -212,8 +220,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DB2DB471AF9477F009F3F86 /* ViewController.swift in Sources */,
 				3DB2DB451AF9477F009F3F86 /* AppDelegate.swift in Sources */,
+				3D01F5A11AF94A0600525B72 /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +417,7 @@
 				3DB2DB601AF94780009F3F86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3DB2DB611AF94780009F3F86 /* Build configuration list for PBXNativeTarget "Rotten TomatoesTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +426,7 @@
 				3DB2DB631AF94780009F3F86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
