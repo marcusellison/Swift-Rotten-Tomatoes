@@ -48,3 +48,9 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 3
 
+// UCZProgressView
+#define COCOAPODS_POD_AVAILABLE_UCZProgressView
+#define COCOAPODS_VERSION_MAJOR_UCZProgressView 1
+#define COCOAPODS_VERSION_MINOR_UCZProgressView 0
+#define COCOAPODS_VERSION_PATCH_UCZProgressView 1
+

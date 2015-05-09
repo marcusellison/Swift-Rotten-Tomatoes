@@ -14,6 +14,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     var movies: [NSDictionary]?
     
+    var refreshControl: UIRefreshControl!
+    
+    var scrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +35,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        self.scrollView.insertSubview(refreshControl, atIndex: 0)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,8 +54,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
     }
     
-    
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("MovieCell", forIndexPath: indexPath) as! MovieCell
         
@@ -62,6 +68,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             urlString = urlString.stringByReplacingCharactersInRange(range, withString: "https://content6.flixster.com/")
         }
         let url = NSURL(string: urlString)
+        
         cell.posterView.setImageWithURL(url)
         
         return cell
@@ -84,6 +91,21 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let movieDetailsViewController = segue.destinationViewController as! MovieDetailsViewController
         
         movieDetailsViewController.movie = movie
+    }
+    
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
+    
+    func onRefresh() {
+        delay(2, closure: {
+            self.refreshControl.endRefreshing()
+        })
     }
 
 }

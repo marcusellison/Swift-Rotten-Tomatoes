@@ -3,7 +3,9 @@
 
 target 'Rotten Tomatoes' do
   source 'https://github.com/CocoaPods/Specs.git'
-  pod 'AFNetworking' 
+  pod 'AFNetworking'
+  pod 'UCZProgressView'
+ 
 end
 
 target 'Rotten TomatoesTests' do

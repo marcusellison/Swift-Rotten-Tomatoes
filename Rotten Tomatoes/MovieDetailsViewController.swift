@@ -31,9 +31,9 @@ class MovieDetailsViewController: UIViewController {
         }
         let url = NSURL(string: urlString)
         
-        
-        
         imageView.setImageWithURL(url)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
