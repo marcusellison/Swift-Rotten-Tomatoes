@@ -65,7 +65,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
-        scrollView?.insertSubview(refreshControl, atIndex: 0)
+        tableView.insertSubview(refreshControl, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
