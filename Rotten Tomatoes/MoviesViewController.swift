@@ -10,13 +10,27 @@ import UIKit
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var networkErrorView: UIView!
     
+    @IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
     var movies: [NSDictionary]?
     
     var refreshControl: UIRefreshControl!
     
-    var scrollView: UIScrollView!
+    var scrollView: UIScrollView?
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.networkErrorView.hidden = true
+        self.loaderView.hidden = true
+        
+        loadingIndicatorView.startAnimating()
+        
+        // Don't have a use for this.
+//        let loadingIndicatorView = UCZProgressView()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +39,24 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let request = NSURLRequest(URL: url)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
-            let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
-            if let json = json {
-                self.movies = json["movies"] as? [NSDictionary]
-                self.tableView.reloadData()
+            
+            // testing to see if there is a network connection.
+            if data != nil {
+                self.networkErrorView.hidden = true
+                self.loaderView.hidden = true
+                
+                let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
+                if let json = json {
+                    self.movies = json["movies"] as? [NSDictionary]
+                    self.tableView.reloadData()
+                }
+                
+                
+            self.loadingIndicatorView.startAnimating()
+            } else {
+                println("no data returned")
+                self.networkErrorView.hidden = false
+                self.loaderView.hidden = false
             }
         }
         
@@ -37,8 +65,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
-        self.scrollView.insertSubview(refreshControl, atIndex: 0)
-        
+        scrollView?.insertSubview(refreshControl, atIndex: 0)
     }
 
     override func didReceiveMemoryWarning() {
