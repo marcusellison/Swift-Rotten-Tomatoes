@@ -36,11 +36,6 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //        self.loaderView.hidden = true
         loadingIndicatorView.startAnimating()
         self.loadingIndicatorView.hidden = true
-        
-        
-        
-        // Don't have a use for this.
-        //        let loadingIndicatorView = UCZProgressView()
     }
     
     override func viewDidLoad() {
