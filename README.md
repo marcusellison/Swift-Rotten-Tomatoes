@@ -19,6 +19,6 @@ Completed user stories:
 
 Walkthrough of user stories:
 
-![Alt text](/rotten-tomatoes-gif.gif?raw=true "Optional Title")
+![Alt text](/gif/rotten-tomatoes-gif.gif?raw=true "Optional Title")
 
 GIF created with LiceCap.
