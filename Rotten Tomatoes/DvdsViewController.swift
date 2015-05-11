@@ -1,15 +1,15 @@
 //
-//  MoviesViewController.swift
+//  DvdsViewController.swift
 //  Rotten Tomatoes
 //
-//  Created by Marcus J. Ellison on 5/5/15.
+//  Created by Marcus J. Ellison on 5/10/15.
 //  Copyright (c) 2015 Marcus J. Ellison. All rights reserved.
 //
 
 import UIKit
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
-
+class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+    
     @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var networkErrorView: UIView!
@@ -25,27 +25,28 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var scrollView: UIScrollView?
     
     //search bar
-    @IBOutlet weak var movieSearchBar: UISearchBar!
+
+    @IBOutlet weak var dvdSearchBar: UISearchBar!
     var searchActive : Bool = false
     var filtered:[NSDictionary] = []
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.networkErrorView.hidden = true
-//        self.loaderView.hidden = true
+        //        self.loaderView.hidden = true
         loadingIndicatorView.startAnimating()
         self.loadingIndicatorView.hidden = true
         
         
         
         // Don't have a use for this.
-//        let loadingIndicatorView = UCZProgressView()
+        //        let loadingIndicatorView = UCZProgressView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let url = NSURL(string: "https://gist.githubusercontent.com/timothy1ee/d1778ca5b944ed974db0/raw/489d812c7ceeec0ac15ab77bf7c47849f2d1eb2b/gistfile1.json")!
+        
+        let url = NSURL(string: "https://gist.githubusercontent.com/timothy1ee/e41513a57049e21bc6cf/raw/b490e79be2d21818f28614ec933d5d8f467f0a66/gistfile1.json")!
         let request = NSURLRequest(URL: url)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
@@ -53,7 +54,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             // testing to see if there is a network connection.
             if data != nil {
                 self.networkErrorView.hidden = true
-//                self.loaderView.hidden = true
+                //                self.loaderView.hidden = true
                 self.loadingIndicatorView.hidden = true
                 
                 let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
@@ -63,24 +64,24 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 
                 
-            self.loadingIndicatorView.startAnimating()
+                self.loadingIndicatorView.startAnimating()
             } else {
                 println("no data returned")
                 self.networkErrorView.hidden = false
-//                self.loaderView.hidden = false
+                //                self.loaderView.hidden = false
                 self.loadingIndicatorView.hidden = false
             }
         }
         
         tableView.dataSource = self
         tableView.delegate = self
-        movieSearchBar.delegate = self
+        dvdSearchBar.delegate = self
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -105,7 +106,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         var movie: NSDictionary!
         
         if searchActive {
-            println(filtered[indexPath.row])
             movie = filtered[indexPath.row]
         } else {
             movie = movies![indexPath.row];
@@ -129,9 +129,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let cell = sender as! UITableViewCell
@@ -177,7 +177,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchActive = false;
     }
     
-    func searchBar(movieSearchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(dvdSearchBar: UISearchBar, textDidChange searchText: String) {
         
         filtered = movies!.filter({ (text) -> Bool in
             let tmp: AnyObject? = text["title"]
@@ -197,5 +197,4 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         self.tableView.reloadData()
     }
     
-
 }
