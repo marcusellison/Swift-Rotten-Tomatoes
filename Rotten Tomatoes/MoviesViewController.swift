@@ -18,6 +18,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var moviesBarItem: UITabBarItem!
     
     @IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
+    
+    let posterDefaultImage = UIImage(named: "posterDefault")!
+    
     var movies: [NSDictionary]?
     
     var refreshControl: UIRefreshControl!
@@ -32,14 +35,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.networkErrorView.hidden = true
-//        self.loaderView.hidden = true
         loadingIndicatorView.startAnimating()
         self.loadingIndicatorView.hidden = true
         
         
-        
-        // Don't have a use for this.
-//        let loadingIndicatorView = UCZProgressView()
     }
     
     override func viewDidLoad() {
@@ -53,7 +52,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             // testing to see if there is a network connection.
             if data != nil {
                 self.networkErrorView.hidden = true
-//                self.loaderView.hidden = true
                 self.loadingIndicatorView.hidden = true
                 
                 let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
@@ -67,7 +65,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             } else {
                 println("no data returned")
                 self.networkErrorView.hidden = false
-//                self.loaderView.hidden = false
                 self.loadingIndicatorView.hidden = false
             }
         }
@@ -119,9 +116,24 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if let range = range {
             urlString = urlString.stringByReplacingCharactersInRange(range, withString: "https://content6.flixster.com/")
         }
-        let url = NSURL(string: urlString)
+        let url = NSURL(string: urlString)!
         
-        cell.posterView.setImageWithURL(url)
+        // ended up not being able to get this to work as it should.
+//        cell.posterView.setImageWithURLRequest(url, placeholderImage: posterDefaultImage, success: { (NSURLRequest,NSHTTPURLResponse, UIImage) -> Void in
+//                println("success!")
+//            cell.posterView.alpha = 0
+//            MovieCell.animateWithDuration(0.3, animations: {
+//                cell.posterView.alpha = 1
+//            })
+//        }, failure: { (NSURLRequest,NSHTTPURLResponse, NSError) -> Void in
+//            println("error")
+//        })
+        
+        cell.posterView.layer.opacity = 0
+        cell.posterView.setImageWithURL(url, placeholderImage: posterDefaultImage)
+        MovieCell.animateWithDuration(1, animations: {
+            cell.posterView.alpha = 1
+        })
         
         return cell
     }
@@ -184,8 +196,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             let range = tmp!.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
             return range.location != NSNotFound
         })
-        
-        
         
         if(filtered.count == 0){
             searchActive = false;

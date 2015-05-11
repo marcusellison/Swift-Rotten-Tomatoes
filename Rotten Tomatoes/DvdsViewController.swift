@@ -17,6 +17,8 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var bottomTabBar: UITabBar!
     @IBOutlet weak var moviesBarItem: UITabBarItem!
     
+    let posterDefaultImage = UIImage(named: "posterDefault")
+    
     @IBOutlet weak var loadingIndicatorView: UIActivityIndicatorView!
     var movies: [NSDictionary]?
     
@@ -49,7 +51,6 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
             // testing to see if there is a network connection.
             if data != nil {
                 self.networkErrorView.hidden = true
-                //                self.loaderView.hidden = true
                 self.loadingIndicatorView.hidden = true
                 
                 let json = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary
@@ -63,7 +64,6 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
             } else {
                 println("no data returned")
                 self.networkErrorView.hidden = false
-                //                self.loaderView.hidden = false
                 self.loadingIndicatorView.hidden = false
             }
         }
@@ -116,7 +116,11 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         let url = NSURL(string: urlString)
         
-        cell.posterView.setImageWithURL(url)
+        cell.posterView.layer.opacity = 0
+        cell.posterView.setImageWithURL(url, placeholderImage: posterDefaultImage)
+        MovieCell.animateWithDuration(1, animations: {
+            cell.posterView.alpha = 1
+        })
         
         return cell
     }
@@ -135,9 +139,9 @@ class DvdsViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let movie = movies![indexPath.row]
         
-        let movieDetailsViewController = segue.destinationViewController as! MovieDetailsViewController
+        let dvdDetailsViewController = segue.destinationViewController as! DvdDetailsViewController
         
-        movieDetailsViewController.movie = movie
+        dvdDetailsViewController.movie = movie
     }
     
     func delay(delay:Double, closure:()->()) {
